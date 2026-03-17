@@ -5,5 +5,8 @@ import mongoose, { Mongoose } from "mongoose";
 // We have only discussed through `grubHunterActivity1.pdf`,
 // but this part pertains to `grubHunterActivity**2**.pdf`.
 declare global {
-    var mongoose
+	var mongoose: {
+		conn: unknown;
+		promise: unknown;
+	};
 }

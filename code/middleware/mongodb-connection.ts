@@ -1,18 +1,40 @@
 import mongoose from "mongoose";
 
+const mongoURI = process.env.MONGO_URI;
+
+if (!mongoURI) 
+    throw new Error('Local environment variable "MONGO_URI" is missing.');
+
+let connection = global.mongoose;
+
+if (!connection) {
+    connection = global.mongoose = { conn: null, promise: null}
+}
+
 const dbConnect = async () => {
-	const mongoURI = process.env.MONGO_URI;
+	if (connection.conn) {
+        return connection.conn;
+    }
 
-	if (!mongoURI) 
-        throw new Error('Local environment variable "MONGO_URI" is missing.');
+	if (!connection.promise) {
+        await mongoose.disconnect();
 
-	const alreadyConnected = Boolean(mongoose.connection);
+        connection.promise = mongoose
+            .connect(mongoURI)
+            .then(mongoose => mongoose)
+            .catch(error => {
+                throw new Error(String(error))
+            })
+    }
+    
+    try {
+        connection.conn = await connection.promise;
+    }
+    catch (error) {
+        console.error(error);
+    }
 
-	global.mongoose = alreadyConnected 
-        ? mongoose.connection 
-        : await mongoose.connect(mongoURI);
-
-	console.log(`global.mongoose is using ${alreadyConnected ? "an existing" : "a new"} mongodb connection.`);
+    return connection.conn;
 };
 
 export default dbConnect;
