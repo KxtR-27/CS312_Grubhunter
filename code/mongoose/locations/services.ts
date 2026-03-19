@@ -1,51 +1,51 @@
-import type { filterOnWishlist, getByID } from "./custom";
+import { QueryOptions } from "mongoose";
+import type { LocationFilter, WishlistFilter } from "./custom";
 import locationModel from "./model";
+import { Location } from "./schema";
 
-const getAllLocations = async () => {
-	try {
-		return await locationModel.find({});
-	} catch (error) {
-		console.log(error);
-		return [];
-	}
+type GraphQLResult = Promise<Location | Location[]>;
+
+const findLocations = async (filter: LocationFilter | WishlistFilter | {}): GraphQLResult => {
+    try {
+        return await locationModel.find(filter)
+    }
+    catch (error) {
+        console.log(error);
+        return [];
+    }
 };
 
-const getByID: getByID = async (id: string) => {
-	try {
-		return await locationModel.findOne({ location_id: id });
-	} catch (error) {
-		console.log(error);
-		return [];
-	}
+const findAllLocations = async (): GraphQLResult => {
+	return await findLocations({});
 };
 
-const getOnWishlist: filterOnWishlist = async () => {
-	try {
-		return await locationModel.find({ on_wishlist: true });
-	} catch (error) {
-		console.log(error);
-		return [];
-	}
+const findLocationsByID = async (location_ids: string[]): GraphQLResult => {
+	const filter = { location_id: location_ids };
+	return await findLocations(filter);
 };
 
-const addToWishlist = async (id: string) => {
-	try {
-		await locationModel.updateOne({ location_id: id }, { on_wishlist: true });
-        return true;
-	} catch (error) {
-		console.log(error);
-		return false;
-	}
+const onUserWishlist = async (user_id: string) => {
+	const filter: WishlistFilter = { on_wishlist: { $in: [user_id] } };
+	return await findLocations(filter);
 };
 
-const removeFromWishlist = async (id: string) => {
-	try {
-		await locationModel.updateOne({ location_id: id }, { on_wishlist: false });
-        return true;
-	} catch (error) {
-		console.log(error);
-		return false;
-	}
+const updateWishlist = async (location_id: string, user_id: string, action: string): GraphQLResult => {
+	const filter = { location_id: location_id };
+	const options: QueryOptions = { upsert: true, returnDocument: "after" };
+	let update = {};
+
+	if (action == "add") 
+        update = { $push: { on_wishlist: user_id } };
+	else if (action == "remove")
+        update = { $pull: { on_wishlist: user_id } };
+
+    try {
+	    return await locationModel.findOneAndUpdate(filter, update, options) as Location[]
+    }
+    catch (error) {
+        console.log(error);
+        return {};
+    }
 };
 
-export { getAllLocations, getByID, getOnWishlist, addToWishlist, removeFromWishlist };
+export { findAllLocations, findLocationsByID, onUserWishlist, updateWishlist };

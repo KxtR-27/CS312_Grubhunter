@@ -1,5 +1,9 @@
-type GetByID = (id: string) => Promise<Location>;
+declare type LocationFilter = { location_id: string | string[] };
 
-type filterOnWishlist = () => Promise<Array<Location>>;
+declare type WishlistFilter = {
+	on_wishlist: {
+		$in: string[];
+	};
+};
 
-export type { getByID, filterOnWishlist };
+export type { LocationFilter, WishlistFilter };
