@@ -14,6 +14,6 @@ const gqlSchema = gql`
     type Mutation {
         ${locationTypeDefsMutations}
     }
-`
+`;
 
 export default gqlSchema;
