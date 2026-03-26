@@ -1,16 +1,16 @@
 import { InferSchemaType, Schema } from "mongoose";
 
 const locationSchema = new Schema({
-    address: String,
-    zipcode: String,
-    borough: String,
-    cuisine: String,
-    grade: String,
-    name: String,
-    on_wishlist: Array<String>,
-    location_id: String,
-})
+	address: { type: String, required: true },
+	zipcode: { type: String, required: true },
+	borough: { type: String, required: true },
+	cuisine: { type: String, required: true },
+	grade: { type: String, required: true },
+	name: { type: String, required: true },
+	on_wishlist: { type: Array<String>, required: true },
+	location_id: { type: String, required: true },
+});
 
 export type Location = InferSchemaType<typeof locationSchema>;
 
-export default locationSchema
+export default locationSchema;
