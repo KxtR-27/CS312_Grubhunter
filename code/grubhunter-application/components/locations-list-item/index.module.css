@@ -1,0 +1,34 @@
+.root {
+    background-color: white;
+    border-radius: 5px;
+    color: #1d1f21;
+    cursor: pointer;
+    list-style: none;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    transition: background-color 0.25s ease-in, color 0.25s ease-in;
+    will-change: background-color, color;
+}
+
+.root:hover {
+    background-color: rgba(0, 118, 255, 0.9);
+    color: white;
+}
+
+.root h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.root small {
+    font-weight: 300;
+    padding: 0 1rem;
+}
+
+.root b {
+    font-weight: bold;
+}
+
+.root li {
+    list-style: none;
+}
