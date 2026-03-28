@@ -3,9 +3,7 @@ import type { LocationFilter, WishlistFilter } from "./custom";
 import locationModel from "./model";
 import { Location } from "./schema";
 
-type MongooseResult = Promise<Location[] | []>;
-
-const findLocations = async (filter: LocationFilter | WishlistFilter | {}): MongooseResult => {
+const findLocations = async (filter: LocationFilter | WishlistFilter | {}): Promise<Location[] | []> => {
 	try {
 		const data = await locationModel.find(filter);
 		return data;
@@ -15,12 +13,12 @@ const findLocations = async (filter: LocationFilter | WishlistFilter | {}): Mong
 	}
 };
 
-const findAllLocations = async (): MongooseResult => {
+const findAllLocations = async (): Promise<Location[] | []> => {
 	const filter = {};
 	return await findLocations(filter);
 };
 
-const findLocationsByID = async (location_ids: LocationFilter): MongooseResult => {
+const findLocationsByID = async (location_ids: LocationFilter): Promise<Location[] | []> => {
 	const filter = location_ids;
 	return await findLocations(filter);
 };
@@ -30,7 +28,7 @@ const onWishlist = async (user_id: string) => {
 	return await findLocations(filter);
 };
 
-const updateWishlist = async (location_id: string, user_id: string, action: string): MongooseResult => {
+const updateWishlist = async (location_id: string, user_id: string, action: string): Promise<Location[] | []> => {
 	const filter = { location_id: location_id };
 	const options: QueryOptions = { upsert: true, returnDocument: "after" };
 	let update = {};

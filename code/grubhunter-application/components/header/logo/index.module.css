@@ -1,0 +1,14 @@
+.root {
+    display: inline-block;
+    object-fit: contain;
+    height: 35px;
+    position: relative;
+    width: 119px;
+}
+
+@media screen and (min-width: 600px) {
+    .root {
+        height: 50px;
+        width: 169px;
+    }
+}

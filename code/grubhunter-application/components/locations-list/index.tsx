@@ -1,5 +1,6 @@
 import { Location } from "@/mongoose/locations/schema";
 import LocationsListItem from "../locations-list-item";
+import styles from "./index.module.css";
 
 interface LocationsListProps {
 	locations: Location[];
@@ -7,7 +8,7 @@ interface LocationsListProps {
 
 const LocationsList = ({ locations }: LocationsListProps) => {
 	return (
-		<ul>
+		<ul className={styles.root}>
 			{locations.map(location => (
 				<LocationsListItem location={location} key={location.location_id} />
 			))}

@@ -12,7 +12,7 @@
 
 .root:hover {
     background-color: rgba(0, 118, 255, 0.9);
-    color: white;
+    color: rgba(0, 118, 255, 0.9);
 }
 
 .root h2 {
