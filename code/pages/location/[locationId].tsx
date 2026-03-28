@@ -6,12 +6,14 @@ import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsT
 import Head from "next/head";
 
 interface LocationDetailsContext extends GetServerSidePropsContext {
-    params: { locationId: string }
+	params: { locationId: string };
 }
 
-const LocationDetailsPage: NextPage = ({ serializableLocation }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-    const location = serializableLocation as Location;
-    const title = location.name;
+const LocationDetailsPage: NextPage = ({
+	serializedLocation,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+	const location = serializedLocation as Location;
+	const title = location.name;
 
 	return (
 		<>
@@ -26,15 +28,18 @@ const LocationDetailsPage: NextPage = ({ serializableLocation }: InferGetServerS
 };
 
 const getServerSideProps: GetServerSideProps = async context => {
-    const id = (context as LocationDetailsContext).params.locationId
+	const id = (context as LocationDetailsContext).params.locationId;
 
-    await dbConnect()
-    const locations = await findLocationsByID({ location_id: id })
-    if (!locations || locations.length === 0) return { notFound: true }
+	await dbConnect();
+	const locations = await findLocationsByID({ location_id: id });
+	if (!locations || locations.length === 0) return { notFound: true };
 
-    const location = Array.isArray(locations) ? locations[0] : (locations as Location)
-    const serializableLocation = JSON.parse(JSON.stringify(location))
-    return { props: { serializableLocation }}
+	// ↓ result can technically be an object or an array. this accounts for that. ↓
+	const location = Array.isArray(locations) ? locations[0] : (locations as Location);
+	// ↓ widely regarded as best practice. serializes an object. ↓
+	const serializedLocation = JSON.parse(JSON.stringify(location));
+
+	return { props: { serializedLocation } };
 };
 
 export default LocationDetailsPage;

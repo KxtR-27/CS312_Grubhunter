@@ -12,7 +12,7 @@ const LocationDetails = ({ location }: LoactionDetailsProps) => {
 
 	return (
 		<div className={styles.root}>
-            <h2>{name}</h2>
+			<h2>{name}</h2>
 			<ul className={styles.root}>
 				<li className={styles.li}>{address}</li>
 				<li className={styles.li}>{zipcode}</li>

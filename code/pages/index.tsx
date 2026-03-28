@@ -7,8 +7,8 @@ import LocationsList from "../grubhunter-application/components/locations-list";
 import dbConnect from "@/middleware/mongodb-connection";
 import { findAllLocations } from "@/mongoose/locations/services";
 
-const StartPage: NextPage = ({ locationsString }: InferGetStaticPropsType<typeof getStaticProps>) => {
-	const parsedLocations: Location[] = JSON.parse(locationsString);
+const StartPage: NextPage = ({ serializedLocations }: InferGetStaticPropsType<typeof getStaticProps>) => {
+	const parsedLocations = serializedLocations as Location[];
 	const title = "Start Page";
 
 	return (
@@ -26,8 +26,10 @@ const StartPage: NextPage = ({ locationsString }: InferGetStaticPropsType<typeof
 const getStaticProps: GetStaticProps = async _context => {
 	return await dbConnect()
 		.then(_ => findAllLocations())
-		.then(locations => JSON.stringify(locations as Location[]))
-		.then(locationsString => ({ props: { locationsString } }));
+		.then(data => data as Location[])
+		// ↓ widely regarded as best practice. serializes an object. ↓
+		.then(locations => JSON.parse(JSON.stringify(locations)))
+		.then(serializedLocations => ({ props: { serializedLocations } }));
 };
 
 export default StartPage;

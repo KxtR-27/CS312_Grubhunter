@@ -1,13 +1,13 @@
-import Logo from './logo'
+import Logo from "./logo";
 
 const Header = () => {
-  return (
-    <header>
-        <div className="layout-grid">
-            <Logo />
-        </div>
-    </header>
-  )
-}
+	return (
+		<header>
+			<div className="layout-grid">
+				<Logo />
+			</div>
+		</header>
+	);
+};
 
-export default Header
+export default Header;

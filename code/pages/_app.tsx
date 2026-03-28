@@ -4,5 +4,5 @@ import "@/styles/layout.css";
 import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Layout children={<Component {...pageProps} />} />
+	return <Layout children={<Component {...pageProps} />} />;
 }
