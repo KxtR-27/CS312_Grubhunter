@@ -1,3 +1,4 @@
+import AuthElement from "../auth-element";
 import Logo from "./logo";
 
 const Header = () => {
@@ -5,6 +6,7 @@ const Header = () => {
 		<header>
 			<div className="layout-grid">
 				<Logo />
+                <AuthElement />
 			</div>
 		</header>
 	);
