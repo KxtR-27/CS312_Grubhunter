@@ -1,12 +1,21 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
+import type { DefaultSession } from "next-auth";
 
-// NOTE: this part is incomplete.
-// We have yet to discuss this portion of the activity.
-// We have only discussed through `grubHunterActivity1.pdf`,
-// but this part pertains to `grubHunterActivity**2**.pdf`.
 declare global {
 	var mongoose: {
 		conn: unknown;
 		promise: unknown;
 	};
 }
+
+declare module "next-auth" {
+	interface Session {
+		user: {
+			fdlst_private_userId: string;
+		} & DefaultSession["user"];
+	}
+}
+
+declare module "*.css"
+
+export {}
