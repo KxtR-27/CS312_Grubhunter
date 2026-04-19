@@ -8,18 +8,20 @@ interface ButtonProps {
 	clickHandler?: (event?: unknown) => {};
 }
 
-const Button = ({ 
-    disabled = false,
-    children,
-    variant,
-    clickHandler 
-}: ButtonProps) => {
+const Button = ({ disabled = false, children, variant, clickHandler }: ButtonProps) => {
+	const parseClasses = () => {
+        const classes = [styles.root]
+
+		if (variant === "blue") classes.push(styles.blue);
+		else if (variant === "outline") classes.push(styles.outline);
+
+		if (disabled) classes.push(styles.disabled);
+
+		return classes;
+	};
+
 	return (
-		<div
-			className={[variant, disabled ? "disabled" : undefined].join(" ")}
-			style={styles}
-			onClick={disabled ? undefined : clickHandler}
-		>
+		<div className={parseClasses().join(" ")} onClick={disabled ? undefined : clickHandler}>
 			{...children}
 		</div>
 	);
