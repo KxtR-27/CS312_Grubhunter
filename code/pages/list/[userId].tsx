@@ -19,7 +19,7 @@ const WishlistPage: NextPage = ({
 	const { data: session, status } = useSession();
 
 	const title = `${userId}'s Wishlist`;
-	const wishlistBelongsToLoggedInUser = status === "authenticated" && userId === session.user.name;
+	const wishlistBelongsToLoggedInUser = status === "authenticated" && userId === session.user.fdlst_private_userId;
 	const wishlistIsEmpty = !locations || locations.length === 0;
 
 	return (

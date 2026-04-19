@@ -5,10 +5,14 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import resolvers from "@/graphql/locations/resolvers";
 import gqlSchema from "@/graphql/locations/schema.gql";
 import dbConnect from "@/middleware/mongodb-connection";
+import { getToken } from "next-auth/jwt";
 
 const server = new ApolloServer<BaseContext>({ resolvers, typeDefs: gqlSchema });
 
-const handler = startServerAndCreateNextHandler(server, { context: async () => ({}) as BaseContext });
+const handler = startServerAndCreateNextHandler(server, { context: async (req) => {
+    const token = await getToken({req});
+    return { token }
+}});
 
 const allowCors = (fn: NextApiHandler) => async (req: NextApiRequest, res: NextApiResponse) => {
 	res.setHeader("Allow", "POST")

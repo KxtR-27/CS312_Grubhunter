@@ -16,14 +16,13 @@ const LocationDetails = ({ location }: LoactionDetailsProps) => {
 	// *** session ***
 	const { data: session, status } = useSession();
 	const userId = session?.user.fdlst_private_userId;
-    const userName = session?.user.name;
 
 	// *** wishlist action states ***
 	const [isOnWishlist, setOnWishlist] = useState(false);
 	const [isLoading, setLoading] = useState(false);
 
     // get actual isOnWishlist state on first render
-	useEffect(() => setOnWishlist(Boolean(userId) && on_wishlist.includes(userName as string)), []);
+	useEffect(() => setOnWishlist(!!userId && on_wishlist.includes(userId)), []);
 
 	// *** wishlist graphql queries ***
 	const wishlistAddQuery = `
@@ -85,7 +84,7 @@ const LocationDetails = ({ location }: LoactionDetailsProps) => {
 					disabled={isLoading}
 					children={[<label>{isOnWishlist ? "Remove from your Wishlist" : "Add to your Wishlist"}</label>]}
 					variant={isOnWishlist ? "outline" : "blue"}
-					clickHandler={() => wishlistAction(locationId, userName as string)}
+					clickHandler={() => wishlistAction(locationId, userId)}
 				/>
 			) : undefined}
 		</div>

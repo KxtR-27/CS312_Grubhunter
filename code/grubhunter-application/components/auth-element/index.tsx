@@ -12,7 +12,7 @@ const AuthElement = (): JSX.Element => {
 	const greetingSpan = <span className="name">Hello, {session?.user.name}!</span>;
 
 	const wishlistButton = (
-		<Button children={[<Link href={`/list/${session?.user.name}`}>My Wishlist</Link>]} variant={"outline"} />
+		<Button children={[<Link href={`/list/${session?.user.fdlst_private_userId}`}>My Wishlist</Link>]} variant={"outline"} />
 	);
 
 	const signInOutButton = (

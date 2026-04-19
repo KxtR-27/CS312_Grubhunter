@@ -14,10 +14,12 @@
 		"jsx": "react-jsx",
 		"incremental": true,
 
+        // from activity 3
 		"paths": { "@/*": ["./*"] },
 
+        // from activity 6
 		"baseUrl": ".",
-		"ignoreDeprecations": "6.0"
+		"ignoreDeprecations": "6.0",
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts", "**/*.mts"],
 	"exclude": ["node_modules"]
