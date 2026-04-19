@@ -1,7 +1,7 @@
 services:
     backend:
         image: mongo:latest
-        container_name: grubhunter_backend
+        container_name: grubhunter-backend
         restart: on-failure
         environment:
             MONGO_INITDB_DATABASE: grubhunter
@@ -13,6 +13,7 @@ services:
 
     application:
         image: node:lts-alpine
+        container_name: grubhunter-application
         ports:
             - 3000:3000
         volumes:
@@ -26,6 +27,20 @@ services:
         depends_on:
             - backend
         tty: true
+
+    jest:
+        image: node:lts-alpine
+        container_name: grubhunter-jest
+        working_dir: /home/node/code/
+        volumes:
+            - ./code:/home/node/code
+        depends_on:
+            - backend
+            - application
+        environment:
+            - NODE_ENV=test
+        tty: true
+        command: "npm run testWatch"
 
 volumes:
     mongodb_data_container:

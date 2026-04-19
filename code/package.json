@@ -1,28 +1,35 @@
 {
-  "name": "code",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "@apollo/server": "^5.4.0",
-    "@as-integrations/next": "^4.1.0",
-    "graphql": "^16.13.1",
-    "graphql-tag": "^2.12.6",
-    "mongoose": "^9.3.0",
-    "next": "16.1.6",
-    "next-auth": "^4.24.13",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
-  },
-  "devDependencies": {
-    "@types/mongoose": "^5.11.96",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "typescript": "^5"
-  }
+	"name": "code",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"test": "jest ",
+		"testWatch": "jest --watchAll"
+	},
+	"dependencies": {
+		"@apollo/server": "^5.4.0",
+		"@as-integrations/next": "^4.1.0",
+		"graphql": "^16.13.1",
+		"graphql-tag": "^2.12.6",
+		"mongoose": "^9.3.0",
+		"next": "16.1.6",
+		"next-auth": "^4.24.13",
+		"react": "19.2.3",
+		"react-dom": "19.2.3"
+	},
+	"devDependencies": {
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.2",
+		"@types/jest": "^30.0.0",
+		"@types/mongoose": "^5.11.96",
+		"@types/node": "^20",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"jest": "^30.3.0",
+		"jest-environment-jsdom": "^30.3.0",
+		"typescript": "^5"
+	}
 }
