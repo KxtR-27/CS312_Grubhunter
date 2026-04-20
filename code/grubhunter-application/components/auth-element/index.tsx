@@ -12,12 +12,12 @@ const AuthElement = (): JSX.Element => {
 	const greetingSpan = <span className="name">Hello, {session?.user.name}!</span>;
 
 	const wishlistButton = (
-		<Button children={[<Link href={`/list/${session?.user.fdlst_private_userId}`}>My Wishlist</Link>]} variant={"outline"} />
+		<Button children={<Link href={`/list/${session?.user.fdlst_private_userId}`}>My Wishlist</Link>} variant={"outline"} />
 	);
 
 	const signInOutButton = (
 		<Button
-			children={[<span>{authenticated ? "Sign out" : "Sign in"}</span>]}
+			children={<span>{authenticated ? "Sign out" : "Sign in"}</span>}
 			variant={"blue"}
 			clickHandler={() => (authenticated ? signOut() : signIn())}
 		/>

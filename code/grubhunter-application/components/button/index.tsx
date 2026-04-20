@@ -3,7 +3,7 @@ import styles from "./index.module.css";
 
 interface ButtonProps {
 	disabled?: boolean;
-	children: JSX.Element[];
+	children: JSX.Element | JSX.Element[];
 	variant?: "blue" | "outline";
 	clickHandler?: (event?: unknown) => {};
 }
@@ -22,7 +22,7 @@ const Button = ({ disabled = false, children, variant, clickHandler }: ButtonPro
 
 	return (
 		<div className={parseClasses().join(" ")} onClick={disabled ? undefined : clickHandler}>
-			{...children}
+			{children}
 		</div>
 	);
 };
